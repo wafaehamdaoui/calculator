@@ -182,7 +182,9 @@ void Calculator::Clear(){
 ```
 
 ## Demo:
-The video in the link shows how the Calculator works.
+Those videos in the links show how the Calculator works.
+
+Addition : https://github.com/wafaehamdaoui/calculator/blob/main/Screenrecorder-2021-11-16-21-00-12-804%5B1%5D.gif
 
 
 
