@@ -15,9 +15,18 @@ Buttons are grouped in categories(digits and operations) according to their beha
 
 All the digit buttons (labeled 0 to 9) append a digit.
 
+![image](https://user-images.githubusercontent.com/75392302/141998955-794124f0-6c57-4667-b2f2-84ae0fb3d009.png)
+
+
 And all the operation buttons ( +, - , * , / , pow ) define which operation we will do.
 
-The other buttons( enter, = , sqrt) have their own slots( Equal() , Sqrt_function).
+![image](https://user-images.githubusercontent.com/75392302/141999251-d978eebc-9049-4476-a0c1-f96163679b13.png)
+
+
+The other buttons( enter, = , sqrt , clear) have their own slots( Equal() , Sqrt_function() , Clear()).
+
+![image](https://user-images.githubusercontent.com/75392302/141999538-ef378f6e-f11c-4c61-bc0c-9c68631454dd.png)
+
 
 These variables, together with the contents of the calculator display (a QLCDNumber), encode the state of the calculator:
 
@@ -36,5 +45,11 @@ The value of these variables, determine wich operations I will make betwen the t
 The table below shows the evolution of the calculator state as the user enters a mathematical expression.
 
 ![image](https://user-images.githubusercontent.com/75392302/141990326-a7cdbdf6-9c25-441c-9537-4a3e7d76adf9.png)
+
+Pressing one of the calculator's digit buttons will emit the button's clicked() signal, which will trigger the newDigits() slot. And we append the new digit to the value in the display.
+
+And Pressing one of the calculator's operation buttons will emit the button's clicked() signal, which will trigger the makeOperation() slot.
+
+Then we perform the operation. If Sqrt is applied to a negative number or / to zero, we append "error". If everything goes well, we will wait for  display the result of the operation in the LCDNumber and we set diviTrigger/multiTrigger/addTrigger/subTrigger to false. This ensures that if the user types a new digit, the digit will be considered as a new operand, instead of being appended to the current value.
 
 
