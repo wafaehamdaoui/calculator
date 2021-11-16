@@ -9,7 +9,12 @@ The project consists of a class:
 
 Calculator is the calculator widget, with all the calculator functionality.
 
+## Declaration of class:
+
 The Calculator class provides a simple calculator widget. It inherits from QWidget and has several private slots associated with the calculator's buttons.
+
+### Remark:
+to understand more the construction of the claculator widget and how we orgnise and place its child widgets you can visit Fun_Whith_layouts repository ,here is the link:
 
 Buttons are grouped in categories(digits and operations) according to their behavior.
 
@@ -50,6 +55,10 @@ Pressing one of the calculator's digit buttons will emit the button's clicked() 
 
 And Pressing one of the calculator's operation buttons will emit the button's clicked() signal, which will trigger the makeOperation() slot.
 
-Then we perform the operation. If Sqrt is applied to a negative number or / to zero, we append "error". If everything goes well, we will wait for  display the result of the operation in the LCDNumber and we set diviTrigger/multiTrigger/addTrigger/subTrigger to false. This ensures that if the user types a new digit, the digit will be considered as a new operand, instead of being appended to the current value.
+Then we perform the operation. If Sqrt is applied to a negative number or / to zero, we append "error". If everything goes well, we will wait for pressing enter ou = button to display the result of the operation in the LCDNumber and we set diviTrigger/multiTrigger/addTrigger/subTrigger to false. This ensures that if the user types a new digit, the digit will be considered as a new operand, instead of being appended to the current value.
 
+The Clear() slot resets the calculator to its initial state.
+
+## Demo:
+The video below shows how the Calculator works.
 
