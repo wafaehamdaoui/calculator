@@ -5,16 +5,13 @@ This project shows how to use signals and slots to implement the functionality o
 ![image](https://user-images.githubusercontent.com/75392302/141868380-331a6cd1-1f0b-452c-899a-75543cbac429.png)
 
 
-This project consists of a class:
-
-Calculator is the calculator widget, with all the calculator functionality.
+This project consists of a class is the calculator class, with all the calculator functionality.
 
 ## Declaration of class:
 
 The Calculator class provides a simple calculator widget. It inherits from QWidget and has several private slots associated with the calculator's buttons.
 
-### Remark:
-to understand more the construction of the claculator widget and how we orgnise and place its child widgets you can visit Fun_Whith_layouts repository ,here is the link:https://github.com/wafaehamdaoui/Fun-with-Layout
+The layout is handled by a single QGridLayout. Most child widgets occupy only one cell in the grid layout;we only need to pass a row and a column to addWidget(). Except the clear widget occupy more than one column
 
 Buttons are grouped in categories(digits and operations) according to their behavior.
 
@@ -31,6 +28,9 @@ And all the operation buttons ( +, - , * , / , pow ) define which operation we w
 The other buttons( enter, = , sqrt , clear) have their own slots( Equal() , Sqrt_function() , Clear()).
 
 ![image](https://user-images.githubusercontent.com/75392302/141999538-ef378f6e-f11c-4c61-bc0c-9c68631454dd.png)
+
+### Remark:
+to understand more the construction of the claculator widget and how we orgnise and place its child widgets you can visit Fun_Whith_layouts repository ,here is the link:https://github.com/wafaehamdaoui/Fun-with-Layout
 
 # Calculator Class Implementation:
 
@@ -59,7 +59,7 @@ The value of these variables, determine wich operations I will make betwen the t
 
 The table below shows the evolution of the calculator state as the user enters a mathematical expression.
 
-![image](https://user-images.githubusercontent.com/75392302/141990326-a7cdbdf6-9c25-441c-9537-4a3e7d76adf9.png)
+![image](https://user-images.githubusercontent.com/75392302/142051701-4eb9dc09-549c-488d-90e5-47ea78d83c50.png)
 
 Pressing one of the calculator's digit buttons will emit the button's clicked() signal, which will trigger the newDigits() slot. And we append the new digit to the value in the display.
 
@@ -132,6 +132,7 @@ void Calculator::Equal()
 {
 
     double result=0.0;
+    auto power = 1.0;
     double dispValue = disp->value();
     if(addTrigger || subTrigger || divTrigger || multiTrigger || powTrigger){
      if (addTrigger) {
@@ -146,12 +147,14 @@ void Calculator::Equal()
            result = calcValue / dispValue;
        } else if (powTrigger) {
          for(int i=dispValue  ; i>0 ; i--){
-             result = calcValue ;
-             result *=calcValue;
+            power *=calcValue;
          }
+         result = power;
      }
 
     disp->display(result);
+
+
 }
 }
 ```
@@ -179,5 +182,8 @@ void Calculator::Clear(){
 ```
 
 ## Demo:
-The video below shows how the Calculator works.
+The video in the link shows how the Calculator works.
+
+
+
 
