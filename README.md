@@ -125,7 +125,7 @@ void Calculator::makeOperation()
 }
 ```
 
-Then we perform the operation. If we pressing  / so we should check if the deminator is defferent to zero it is case so we append "error". If everything goes well. After pressing enter ou = button to display the result of the operation in the LCDNumber .
+Then we perform the operation. If we pressing  '/' so we should check if the deminator is defferent to zero if it's the case so we append "error" . If  everything goes well and  after pressing 'enter' ou '=' button  the result of the operation will display in the LCDNumber .
 
 ```cpp
 void Calculator::Equal()
@@ -153,11 +153,11 @@ void Calculator::Equal()
      }
 
     disp->display(result);
-
-
-}
+  }
 }
 ```
+Example of deminator equal to zero:
+
 
 And we set diviTrigger/multiTrigger/addTrigger/subTrigger to false. This ensures that if the user types a new digit, the digit will be considered as a new operand, instead of being appended to the current value.
 
@@ -169,7 +169,21 @@ And we set diviTrigger/multiTrigger/addTrigger/subTrigger to false. This ensures
      powTrigger=false;
 ```
 
-For the sqrt_function() calculate 
+For the sqrt_function() we shoud verify if the operand number is positive if yes so we can make the operation , if not we will display "error" in the LCDNumber.
+
+```cpp
+void Calculator::Sqrt_function(){
+
+   auto diplay = disp->value();
+   Clear();
+   if(diplay>0)
+       disp->display(sqrt(diplay));
+   disp->display("Error");
+}
+```
+here is a short similation:
+
+![error_s_1_](https://user-images.githubusercontent.com/75392302/142069732-832911dc-4f0b-4f08-b57a-0d119085a9a5.gif)
 
 The Clear() slot resets the calculator to its initial state.
 
