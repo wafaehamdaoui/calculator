@@ -5,7 +5,7 @@ This project shows how to use signals and slots to implement the functionality o
 ![image](https://user-images.githubusercontent.com/75392302/141868380-331a6cd1-1f0b-452c-899a-75543cbac429.png)
 
 
-The project consists of a class:
+This project consists of a class:
 
 Calculator is the calculator widget, with all the calculator functionality.
 
@@ -14,7 +14,7 @@ Calculator is the calculator widget, with all the calculator functionality.
 The Calculator class provides a simple calculator widget. It inherits from QWidget and has several private slots associated with the calculator's buttons.
 
 ### Remark:
-to understand more the construction of the claculator widget and how we orgnise and place its child widgets you can visit Fun_Whith_layouts repository ,here is the link:
+to understand more the construction of the claculator widget and how we orgnise and place its child widgets you can visit Fun_Whith_layouts repository ,here is the link:https://github.com/wafaehamdaoui/Fun-with-Layout
 
 Buttons are grouped in categories(digits and operations) according to their behavior.
 
@@ -32,10 +32,20 @@ The other buttons( enter, = , sqrt , clear) have their own slots( Equal() , Sqrt
 
 ![image](https://user-images.githubusercontent.com/75392302/141999538-ef378f6e-f11c-4c61-bc0c-9c68631454dd.png)
 
+# Calculator Class Implementation:
 
 These variables, together with the contents of the calculator display (a QLCDNumber), encode the state of the calculator:
 
-calcvalue : contains the value stored in the calculator's disp .Clear All resets calcValue to zero.
+```cpp
+double calcValue = 0.0;
+bool divTrigger=false;
+bool addTrigger=false;
+bool multiTrigger=false;
+bool subTrigger=false;
+bool powTrigger=false;
+```
+
+calcValue : contains the value stored in the calculator's disp .Clear All resets calcValue to zero.
 
 divTrigger : stores a temporary value when clicked on  division button.
 
@@ -53,11 +63,120 @@ The table below shows the evolution of the calculator state as the user enters a
 
 Pressing one of the calculator's digit buttons will emit the button's clicked() signal, which will trigger the newDigits() slot. And we append the new digit to the value in the display.
 
+```cpp
+void Calculator::newDigit(){
+
+        auto button = dynamic_cast<QPushButton*>(sender());
+
+        //getting the value
+        int value = button->text().toInt();
+
+        //Check if we have an operation defined
+        if(operation)
+        {
+            //check if we have a value or not
+            if(!right)
+                right = new int{value};
+            else
+                *right = 10 * (*right) + value;
+
+            disp->display(*right);
+
+        }
+        else
+        {
+            if(!left)
+                left = new int{value};
+            else
+                *left = 10 * (*left) + value;
+
+            disp->display(*left);
+        }
+}
+```
+
 And Pressing one of the calculator's operation buttons will emit the button's clicked() signal, which will trigger the makeOperation() slot.
 
-Then we perform the operation. If Sqrt is applied to a negative number or / to zero, we append "error". If everything goes well, we will wait for pressing enter ou = button to display the result of the operation in the LCDNumber and we set diviTrigger/multiTrigger/addTrigger/subTrigger to false. This ensures that if the user types a new digit, the digit will be considered as a new operand, instead of being appended to the current value.
+```cpp
+void Calculator::makeOperation()
+{
+
+
+     divTrigger=false;
+     addTrigger=false;
+     multiTrigger=false;
+     subTrigger=false;
+     powTrigger=false;
+
+     auto button = dynamic_cast<QPushButton*>(sender());
+     calcValue = disp->value();
+
+     QString Operation = button->text();
+     if(QString::compare(Operation,"/",Qt::CaseInsensitive)==0){
+         divTrigger = true;
+     }else if(QString::compare(Operation,"*",Qt::CaseInsensitive)==0){
+         multiTrigger = true;
+     }else if(QString::compare(Operation,"+",Qt::CaseInsensitive)==0){
+         addTrigger = true;
+     }else if(QString::compare(Operation,"-",Qt::CaseInsensitive)==0){
+         subTrigger = true;
+     }else if(QString::compare(Operation,"pow",Qt::CaseInsensitive)==0){
+         powTrigger = true;
+}
+```
+
+Then we perform the operation. If we pressing  / so we should check if the deminator is defferent to zero it is case so we append "error". If everything goes well. After pressing enter ou = button to display the result of the operation in the LCDNumber .
+
+```cpp
+void Calculator::Equal()
+{
+
+    double result=0.0;
+    double dispValue = disp->value();
+    if(addTrigger || subTrigger || divTrigger || multiTrigger || powTrigger){
+     if (addTrigger) {
+           result = calcValue + dispValue ;
+       } else if (subTrigger) {
+           result = calcValue - dispValue;
+       } else if (multiTrigger) {
+           result = calcValue * dispValue;
+       } else if (divTrigger) {
+           if (dispValue == 0.0)
+               disp->display("Error");
+           result = calcValue / dispValue;
+       } else if (powTrigger) {
+         for(int i=dispValue  ; i>0 ; i--){
+             result = calcValue ;
+             result *=calcValue;
+         }
+     }
+
+    disp->display(result);
+}
+}
+```
+
+And we set diviTrigger/multiTrigger/addTrigger/subTrigger to false. This ensures that if the user types a new digit, the digit will be considered as a new operand, instead of being appended to the current value.
+
+```cpp
+    divTrigger=false;
+     addTrigger=false;
+     multiTrigger=false;
+     subTrigger=false;
+     powTrigger=false;
+```
+
+For the sqrt_function() calculate 
 
 The Clear() slot resets the calculator to its initial state.
+
+```cpp
+void Calculator::Clear(){
+        disp->display(0);
+        left=nullptr;
+        right=nullptr;
+ }
+```
 
 ## Demo:
 The video below shows how the Calculator works.
