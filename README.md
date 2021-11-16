@@ -5,7 +5,7 @@ This project shows how to use signals and slots to implement the functionality o
 ![image](https://user-images.githubusercontent.com/75392302/141868380-331a6cd1-1f0b-452c-899a-75543cbac429.png)
 
 
-This project consists of a class is the calculator class, with all the calculator functionality.
+This project consists of one class is the calculator class, with all the calculator functionality.
 
 ## Declaration of class:
 
@@ -182,8 +182,17 @@ void Calculator::Clear(){
 ```
 
 ## Demo:
-These video in the links shows how the Calculator works.
+
+This video in the links shows how the Calculator works.
 
 Addition example : https://github.com/wafaehamdaoui/calculator/blob/main/Addition.gif
+
+
+
+## conclusion:
+
+Now our calculator is ready to do any basic operation and some complexe operation like pow and sqrt.
+
+what we can look for now is to adding the three or more operand such as (24 * 23 + 23)!
 
 
