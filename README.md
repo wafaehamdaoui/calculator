@@ -157,7 +157,7 @@ void Calculator::Equal()
 }
 ```
 
-Example of deminator equal to zero:https://github.com/wafaehamdaoui/calculator/blob/main/zeroo_1_.gif
+
 
 And we set diviTrigger/multiTrigger/addTrigger/subTrigger to false. This ensures that if the user types a new digit, the digit will be considered as a new operand, instead of being appended to the current value.
 
