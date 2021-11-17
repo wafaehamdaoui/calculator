@@ -214,3 +214,4 @@ Now our calculator is ready to do any basic operation and some complexe operatio
 what we can look for now is to adding the three or more operand such as (24 * 23 + 23)!
 
 
+> Excellent work. Loved the illustration and the extreme case processing of sqrt(-4).
